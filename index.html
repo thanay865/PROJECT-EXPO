@@ -3,250 +3,581 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookEase - Booking & Reservation</title>
-
+    <title>BookEase 2.0 - Premium Booking & Reservation Platform</title>
+    <meta name="description" content="Discover and reserve luxury hotels, fine dining, acoustic event arenas, and wellness spas with instant confirmation and digital passes.">
+    
+    <!-- STYLESHEET -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- =========================================================================
+         NAVBAR
+         ========================================================================= -->
     <header class="navbar">
-
-        <div class="logo">
+        <a href="#home" class="logo">
+            <div class="logo-badge">⚡</div>
             Book<span>Ease</span>
-        </div>
+        </a>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
+        <nav class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Experiences</a>
             <a href="#bookings">My Bookings</a>
+            <a href="#testimonials">Reviews</a>
         </nav>
 
-        <button class="login-btn">Login</button>
-
-    </header>
-
-
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-
-        <div class="hero-content">
-
-            <h1>Book Your Perfect Experience</h1>
-
-            <p>
-                Find and reserve hotels, restaurants, events and more.
-            </p>
-
-            <!-- SEARCH BOX -->
-            <div class="search-box">
-
-                <div class="input-group">
-                    <label>Location</label>
-                    <input type="text" id="location"
-                           placeholder="Enter location">
-                </div>
-
-                <div class="input-group">
-                    <label>Date</label>
-                    <input type="date" id="date">
-                </div>
-
-                <div class="input-group">
-                    <label>Guests</label>
-                    <input type="number" id="guests"
-                           min="1" value="1">
-                </div>
-
-                <button onclick="searchServices()">
-                    Search
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- SERVICES -->
-    <section class="services" id="services">
-
-        <h2>Popular Services</h2>
-
-        <p class="section-text">
-            Choose what you want to book
-        </p>
-
-        <div class="service-container">
-
-            <!-- CARD 1 -->
-            <div class="card">
-
-                <div class="card-image hotel">
-                    🏨
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Luxury Hotel</h3>
-
-                    <p>
-                        Comfortable rooms with premium facilities.
-                    </p>
-
-                    <div class="card-bottom">
-
-                        <span>₹3,500 / night</span>
-
-                        <button onclick="openBooking('Luxury Hotel', 3500)">
-                            Book Now
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 2 -->
-            <div class="card">
-
-                <div class="card-image restaurant">
-                    🍽️
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Premium Restaurant</h3>
-
-                    <p>
-                        Reserve your table at our premium restaurant.
-                    </p>
-
-                    <div class="card-bottom">
-
-                        <span>₹500 / person</span>
-
-                        <button onclick="openBooking('Premium Restaurant', 500)">
-                            Reserve
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 3 -->
-            <div class="card">
-
-                <div class="card-image event">
-                    🎫
-                </div>
-
-                <div class="card-content">
-
-                    <h3>Event Hall</h3>
-
-                    <p>
-                        Book a venue for your special events.
-                    </p>
-
-                    <div class="card-bottom">
-
-                        <span>₹10,000 / day</span>
-
-                        <button onclick="openBooking('Event Hall', 10000)">
-                            Book Now
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- MY BOOKINGS -->
-    <section class="bookings" id="bookings">
-
-        <h2>My Bookings</h2>
-
-        <div id="booking-list">
-
-            <p class="no-bookings">
-                You don't have any bookings yet.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- BOOKING MODAL -->
-    <div class="modal" id="bookingModal">
-
-        <div class="modal-content">
-
-            <span class="close" onclick="closeBooking()">
-                &times;
-            </span>
-
-            <h2>Complete Your Booking</h2>
-
-            <h3 id="selectedService"></h3>
-
-            <label>Your Name</label>
-            <input type="text" id="customerName"
-                   placeholder="Enter your name">
-
-            <label>Date</label>
-            <input type="date" id="bookingDate">
-
-            <label>Time</label>
-            <input type="time" id="bookingTime">
-
-            <label>Number of Guests</label>
-            <input type="number" id="bookingGuests"
-                   value="1" min="1">
-
-            <button class="confirm-btn"
-                    onclick="confirmBooking()">
-                Confirm Booking
+        <div class="nav-actions">
+            <!-- Theme Toggle -->
+            <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                🌙
             </button>
 
+            <!-- User Auth Profile or Login Button -->
+            <div class="user-profile-badge" id="navUserProfile" onclick="handleLogout()" title="Click to Logout">
+                <div class="user-avatar" id="navUserAvatar">R</div>
+                <span class="user-name" id="navUserName">Rohit</span>
+                <span style="font-size: 11px; opacity: 0.7;">(Logout)</span>
+            </div>
+
+            <button class="btn-primary" id="navLoginBtn" onclick="openAuthModal()">
+                Sign In
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         HERO SECTION WITH MULTI-ATTRIBUTE SEARCH
+         ========================================================================= -->
+    <section class="hero" id="home">
+        <div class="hero-pill">
+            <span>✨</span> Next-Gen Booking Experience 2.0
         </div>
 
+        <h1>Reserve Extraordinary Spaces & Memorable Moments</h1>
+        
+        <p>
+            Handcrafted selection of boutique stays, Michelin-star dining, acoustic event halls, and Ayurvedic wellness escapes across India.
+        </p>
+
+        <!-- SEARCH BAR CONTAINER -->
+        <div class="search-container">
+            <div class="search-pills">
+                <button class="search-pill-btn active" onclick="setCategory('all', this)">✨ All Categories</button>
+                <button class="search-pill-btn" onclick="setCategory('hotels', this)">🏨 Stays & Resorts</button>
+                <button class="search-pill-btn" onclick="setCategory('dining', this)">🍽️ Dining & Lounges</button>
+                <button class="search-pill-btn" onclick="setCategory('events', this)">🎫 Venues & Arenas</button>
+                <button class="search-pill-btn" onclick="setCategory('wellness', this)">🌿 Spa & Wellness</button>
+            </div>
+
+            <form class="search-grid" onsubmit="handleSearch(event)">
+                <div class="search-item">
+                    <label for="heroLocation">Destination / City</label>
+                    <input type="text" id="heroLocation" placeholder="e.g. Udaipur, Bengaluru, Goa..." />
+                </div>
+
+                <div class="search-item">
+                    <label for="heroKeyword">Experience / Keyword</label>
+                    <input type="text" id="heroKeyword" placeholder="e.g. Luxury, Spa, Rooftop..." />
+                </div>
+
+                <div class="search-item">
+                    <label for="heroDate">Check-in Date</label>
+                    <input type="date" id="heroDate" />
+                </div>
+
+                <div class="search-item">
+                    <label for="heroGuests">Guests</label>
+                    <select id="heroGuests">
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="6">6+ Guests (Group)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="search-submit-btn">
+                    Explore ⚡
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         LIVE STATS & TRUST STRIP
+         ========================================================================= -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">🌟</div>
+                <div class="stat-info">
+                    <h3>50,000+</h3>
+                    <p>Verified Bookings</p>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-icon">🛡️</div>
+                <div class="stat-info">
+                    <h3>100% Secure</h3>
+                    <p>Instant Digital Confirmation</p>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <h3>4.9 / 5</h3>
+                    <p>Customer Satisfaction</p>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-icon">💬</div>
+                <div class="stat-info">
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated Concierge Assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SERVICES & CATALOG SECTION
+         ========================================================================= -->
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <span class="section-tag">Curated Collection</span>
+            <h2 class="section-title">Explore Premier Experiences</h2>
+            <p class="section-subtitle">
+                Browse through high-demand venues, bespoke culinary destinations, and wellness retreats.
+            </p>
+        </div>
+
+        <!-- Filter & Sorting Toolbar -->
+        <div class="filter-toolbar">
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="setCategory('all', this)">All</button>
+                <button class="tab-btn" onclick="setCategory('hotels', this)">🏨 Hotels & Stays</button>
+                <button class="tab-btn" onclick="setCategory('dining', this)">🍽️ Dining</button>
+                <button class="tab-btn" onclick="setCategory('events', this)">🎫 Events & Halls</button>
+                <button class="tab-btn" onclick="setCategory('wellness', this)">🌿 Spa & Wellness</button>
+            </div>
+
+            <div class="sort-and-count">
+                <span class="results-count" id="resultsCount">Showing 8 experiences</span>
+                <select class="sort-select" onchange="handleSortChange(this.value)">
+                    <option value="featured">Sort by: Featured</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Dynamic Services Grid -->
+        <div class="services-grid" id="servicesGrid">
+            <!-- Rendered by JavaScript -->
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         MY BOOKINGS DASHBOARD
+         ========================================================================= -->
+    <section class="bookings-section" id="bookings">
+        <div class="bookings-container">
+            <div class="section-header" style="text-align: left; align-items: flex-start;">
+                <span class="section-tag">Account Hub</span>
+                <h2 class="section-title">My Bookings & Passports</h2>
+                <p class="section-subtitle">Manage upcoming trips, view digital boarding passes, or adjust reservations.</p>
+            </div>
+
+            <!-- Booking Stats Summary -->
+            <div class="booking-summary-cards">
+                <div class="summary-card">
+                    <div class="summary-card-icon">📂</div>
+                    <div class="summary-card-info">
+                        <h4 id="statTotalBookings">0</h4>
+                        <p>Total Reservations</p>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-card-icon">✅</div>
+                    <div class="summary-card-info">
+                        <h4 id="statActiveBookings">0</h4>
+                        <p>Active & Confirmed</p>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-card-icon">💳</div>
+                    <div class="summary-card-info">
+                        <h4 id="statTotalSpent">₹0</h4>
+                        <p>Total Value Booked</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Tabs -->
+            <div class="booking-filter-tabs">
+                <button class="booking-tab-btn active" onclick="setBookingFilterTab('all', this)">All Reservations</button>
+                <button class="booking-tab-btn" onclick="setBookingFilterTab('confirmed', this)">Confirmed & Upcoming</button>
+                <button class="booking-tab-btn" onclick="setBookingFilterTab('cancelled', this)">Cancelled</button>
+            </div>
+
+            <!-- Bookings Cards List -->
+            <div class="booking-list" id="bookingListContainer">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         CUSTOMER TESTIMONIALS
+         ========================================================================= -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-header">
+            <span class="section-tag">Guest Experiences</span>
+            <h2 class="section-title">Loved by Thousands of Travelers</h2>
+            <p class="section-subtitle">Hear what our verified guests say about their effortless reservations.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Booking the Udaipur palace via BookEase was lightning fast. We got the digital pass instantly on our phone with zero hassle at check-in."
+                </p>
+                <div class="testimonial-user">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Ananya" class="testimonial-avatar" />
+                    <div class="testimonial-info">
+                        <h5>Ananya Iyer</h5>
+                        <span>Travel Blogger, Mumbai</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Reserved the Skyline Rooftop Bistro for our wedding anniversary. Applied the WELCOME20 coupon for a great discount and got priority seating!"
+                </p>
+                <div class="testimonial-user">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Vikram" class="testimonial-avatar" />
+                    <div class="testimonial-info">
+                        <h5>Vikram Malhotra</h5>
+                        <span>Product Designer, Bengaluru</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "The instant digital voucher with QR codes makes BookEase stand out from any other portal. Beautiful design and seamless experience!"
+                </p>
+                <div class="testimonial-user">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="Pooja" class="testimonial-avatar" />
+                    <div class="testimonial-info">
+                        <h5>Pooja Hegde</h5>
+                        <span>Corporate Event Planner, Delhi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SMART BOOKING & CHECKOUT MODAL
+         ========================================================================= -->
+    <div class="modal-overlay" id="bookingModalOverlay">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeBookingModal()">&times;</button>
+            
+            <div class="modal-header-hero">
+                <img id="modalHeroImg" src="" alt="Service preview" />
+                <div class="modal-header-hero-content">
+                    <h3 id="modalServiceTitle">Service Title</h3>
+                    <p id="modalServiceLoc">Location • Price</p>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form onsubmit="processBooking(event)">
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="custNameInput">Full Name *</label>
+                            <input type="text" id="custNameInput" class="form-control" placeholder="Your name" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custEmailInput">Email Address *</label>
+                            <input type="email" id="custEmailInput" class="form-control" placeholder="name@domain.com" required />
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="custPhoneInput">Mobile Phone</label>
+                            <input type="tel" id="custPhoneInput" class="form-control" placeholder="+91 98765 43210" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bookingGuestsInput">Number of Guests</label>
+                            <input type="number" id="bookingGuestsInput" class="form-control" value="2" min="1" max="50" onchange="calculatePrice()" />
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="bookingDateInput">Reservation Date *</label>
+                            <input type="date" id="bookingDateInput" class="form-control" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bookingTimeInput">Check-in / Time Slot *</label>
+                            <input type="time" id="bookingTimeInput" class="form-control" value="14:00" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookingDurationInput">Duration (Nights / Days / Sessions)</label>
+                        <input type="number" id="bookingDurationInput" class="form-control" value="1" min="1" max="30" onchange="calculatePrice()" />
+                    </div>
+
+                    <!-- Add-ons Selection -->
+                    <div class="addons-box">
+                        <h5>Select Optional Add-ons:</h5>
+                        <label class="addon-checkbox">
+                            <span>🥐 Gourmet Buffet Breakfast / High Tea</span>
+                            <span style="font-weight: 700;">+ ₹500</span>
+                            <input type="checkbox" class="addon-cb" data-price="500" onchange="calculatePrice()" />
+                        </label>
+                        <label class="addon-checkbox">
+                            <span>🚗 Airport / Station Luxury Chauffeur Transfer</span>
+                            <span style="font-weight: 700;">+ ₹800</span>
+                            <input type="checkbox" class="addon-cb" data-price="800" onchange="calculatePrice()" />
+                        </label>
+                        <label class="addon-checkbox">
+                            <span>⭐ VIP Priority Fast-Track Check-in & Lounge Access</span>
+                            <span style="font-weight: 700;">+ ₹450</span>
+                            <input type="checkbox" class="addon-cb" data-price="450" onchange="calculatePrice()" />
+                        </label>
+                    </div>
+
+                    <!-- Coupon Code Input -->
+                    <div class="form-group">
+                        <label for="couponInput">Apply Promo Coupon (Try "WELCOME20" or "EASE500")</label>
+                        <div class="coupon-row">
+                            <input type="text" id="couponInput" class="form-control" placeholder="Enter coupon code" />
+                            <button type="button" class="coupon-btn" onclick="applyCoupon()">Apply</button>
+                        </div>
+                        <span id="couponMsg" style="font-size: 12px; font-weight: 600;"></span>
+                    </div>
+
+                    <!-- Price Breakdown Summary -->
+                    <div class="price-summary-card">
+                        <div class="summary-row">
+                            <span>Base Rate:</span>
+                            <span id="summaryBaseTotal">₹0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Add-ons Total:</span>
+                            <span id="summaryAddonsTotal">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryDiscountRow" style="display: none; color: var(--success);">
+                            <span>Promo Discount:</span>
+                            <span id="summaryDiscount">- ₹0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>GST & Service Taxes (12%):</span>
+                            <span id="summaryTaxes">₹0</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Final Payable Amount:</span>
+                            <span id="summaryGrandTotal">₹0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-checkout">
+                        Complete & Confirm Reservation 🚀
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <!-- =========================================================================
+         DIGITAL BOARDING PASS / TICKET MODAL
+         ========================================================================= -->
+    <div class="modal-overlay" id="ticketModalOverlay">
+        <div class="modal-card" style="max-width: 520px; background: transparent; border: none; box-shadow: none;">
+            <button class="modal-close-btn" style="background: white; color: #0f172a;" onclick="closeTicketModal()">&times;</button>
+            
+            <div class="ticket-pass">
+                <div class="ticket-pass-header">
+                    <h2 style="color: white; font-size: 22px; letter-spacing: -0.5px;">⚡ BookEase Digital Pass</h2>
+                    <p style="color: rgba(255, 255, 255, 0.85); font-size: 13px;">Official Verified Reservation Voucher</p>
+                </div>
 
+                <div class="ticket-pass-body">
+                    <div class="ticket-grid">
+                        <div class="ticket-field">
+                            <label>Booking ID</label>
+                            <p id="ticketBookingId">#BE-0000</p>
+                        </div>
+                        <div class="ticket-field">
+                            <label>Status</label>
+                            <p id="ticketStatus" style="color: var(--success);">CONFIRMED</p>
+                        </div>
+                    </div>
+
+                    <div class="ticket-field" style="margin-bottom: 14px;">
+                        <label>Experience / Venue</label>
+                        <p id="ticketService">Service Name</p>
+                    </div>
+
+                    <div class="ticket-grid">
+                        <div class="ticket-field">
+                            <label>Primary Guest</label>
+                            <p id="ticketGuestName">Guest Name</p>
+                        </div>
+                        <div class="ticket-field">
+                            <label>Party Size</label>
+                            <p id="ticketGuests">2 Guests</p>
+                        </div>
+                    </div>
+
+                    <div class="ticket-grid">
+                        <div class="ticket-field">
+                            <label>Date & Time</label>
+                            <p id="ticketDate">Sep 15, 2026 at 14:00</p>
+                        </div>
+                        <div class="ticket-field">
+                            <label>Total Paid</label>
+                            <p id="ticketAmount" style="color: var(--primary);">₹0</p>
+                        </div>
+                    </div>
+
+                    <div class="ticket-field" style="margin-bottom: 16px;">
+                        <label>Location</label>
+                        <p id="ticketLocation">Destination address</p>
+                    </div>
+
+                    <div class="ticket-qr-section">
+                        <div class="qr-code-box">
+                            <!-- SVG QR Mock -->
+                            <svg width="90" height="90" viewBox="0 0 100 100" fill="currentColor">
+                                <path d="M10 10h30v30h-30zM15 15v20h20v-20zM60 10h30v30h-30zM65 15v20h20v-20zM10 60h30v30h-30zM15 65v20h20v-20zM22 22h6v6h-6zM72 22h6v6h-6zM22 72h6v6h-6zM60 60h10v10h-10zM80 60h10v10h-10zM60 80h10v10h-10zM70 70h10v10h-10zM80 80h10v10h-10z" />
+                            </svg>
+                        </div>
+                        <div class="ticket-barcode" id="ticketBarcodeText">* BE-0000 *</div>
+                        <p style="font-size: 11px; color: #94a3b8; margin-top: 6px;">Show this pass at venue desk for immediate priority entry</p>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button onclick="printTicket()" style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                            🖨️ Print / Save PDF
+                        </button>
+                        <button onclick="closeTicketModal()" style="padding: 10px 18px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 600; cursor: pointer; color: #334155;">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         USER LOGIN / SIGN UP MODAL
+         ========================================================================= -->
+    <div class="modal-overlay" id="authModalOverlay">
+        <div class="modal-card" style="max-width: 440px;">
+            <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+            <div class="modal-body" style="padding: 30px;">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div class="logo-badge" style="margin: 0 auto 12px; width: 48px; height: 48px; font-size: 24px;">⚡</div>
+                    <h2>Welcome to BookEase</h2>
+                    <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Sign in to unlock VIP rates and track your bookings</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="authNameInput">Your Name</label>
+                        <input type="text" id="authNameInput" class="form-control" value="Rohit Sharma" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authEmailInput">Email Address</label>
+                        <input type="email" id="authEmailInput" class="form-control" value="rohit@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authPassInput">Password</label>
+                        <input type="password" id="authPassInput" class="form-control" value="••••••••" required />
+                    </div>
+
+                    <button type="submit" class="btn-checkout" style="margin-top: 20px;">
+                        Sign In / Register ✨
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- =========================================================================
+         FOOTER
+         ========================================================================= -->
     <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3>⚡ BookEase</h3>
+                <p>The next-generation reservation platform designed for effortless discovery and booking of premium hotels, fine dining, and events.</p>
+            </div>
 
-        <h3>BookEase</h3>
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="#services" onclick="setCategory('hotels')">Hotels & Stays</a></li>
+                    <li><a href="#services" onclick="setCategory('dining')">Gourmet Dining</a></li>
+                    <li><a href="#services" onclick="setCategory('events')">Events & Halls</a></li>
+                    <li><a href="#services" onclick="setCategory('wellness')">Spa & Wellness</a></li>
+                </ul>
+            </div>
 
-        <p>
-            Simple and convenient booking platform.
-        </p>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#bookings">My Bookings</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="javascript:void(0)" onclick="openAuthModal()">User Account</a></li>
+                </ul>
+            </div>
 
-        <p>
-            © 2026 BookEase
-        </p>
+            <div class="footer-col">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="showToast('Helpline: +91 1800-BOOK-EASE', 'info')">24/7 Helpline</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToast('Cancellation policy: 100% refund up to 24h prior', 'info')">Cancellation Policy</a></li>
+                    <li><a href="javascript:void(0)" onclick="showToast('Active Promos: WELCOME20, EASE500', 'info')">Coupon Codes</a></li>
+                </ul>
+            </div>
+        </div>
 
+        <div class="footer-bottom">
+            <p>© 2026 BookEase Platform Inc. All rights reserved.</p>
+            <p>Crafted with modern web technologies & ultra-rich UX.</p>
+        </div>
     </footer>
 
-
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 
-
-
-    
 </body>
 </html>
