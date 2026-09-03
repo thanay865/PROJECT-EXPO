@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookEase - Booking & Reservation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            Book<span>Ease</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#bookings">My Bookings</a>
+        </nav>
+
+        <button class="login-btn">Login</button>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>Book Your Perfect Experience</h1>
+
+            <p>
+                Find and reserve hotels, restaurants, events and more.
+            </p>
+
+            <!-- SEARCH BOX -->
+            <div class="search-box">
+
+                <div class="input-group">
+                    <label>Location</label>
+                    <input type="text" id="location"
+                           placeholder="Enter location">
+                </div>
+
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" id="date">
+                </div>
+
+                <div class="input-group">
+                    <label>Guests</label>
+                    <input type="number" id="guests"
+                           min="1" value="1">
+                </div>
+
+                <button onclick="searchServices()">
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+
+        <h2>Popular Services</h2>
+
+        <p class="section-text">
+            Choose what you want to book
+        </p>
+
+        <div class="service-container">
+
+            <!-- CARD 1 -->
+            <div class="card">
+
+                <div class="card-image hotel">
+                    🏨
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Luxury Hotel</h3>
+
+                    <p>
+                        Comfortable rooms with premium facilities.
+                    </p>
+
+                    <div class="card-bottom">
+
+                        <span>₹3,500 / night</span>
+
+                        <button onclick="openBooking('Luxury Hotel', 3500)">
+                            Book Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="card">
+
+                <div class="card-image restaurant">
+                    🍽️
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Premium Restaurant</h3>
+
+                    <p>
+                        Reserve your table at our premium restaurant.
+                    </p>
+
+                    <div class="card-bottom">
+
+                        <span>₹500 / person</span>
+
+                        <button onclick="openBooking('Premium Restaurant', 500)">
+                            Reserve
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="card">
+
+                <div class="card-image event">
+                    🎫
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Event Hall</h3>
+
+                    <p>
+                        Book a venue for your special events.
+                    </p>
+
+                    <div class="card-bottom">
+
+                        <span>₹10,000 / day</span>
+
+                        <button onclick="openBooking('Event Hall', 10000)">
+                            Book Now
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MY BOOKINGS -->
+    <section class="bookings" id="bookings">
+
+        <h2>My Bookings</h2>
+
+        <div id="booking-list">
+
+            <p class="no-bookings">
+                You don't have any bookings yet.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- BOOKING MODAL -->
+    <div class="modal" id="bookingModal">
+
+        <div class="modal-content">
+
+            <span class="close" onclick="closeBooking()">
+                &times;
+            </span>
+
+            <h2>Complete Your Booking</h2>
+
+            <h3 id="selectedService"></h3>
+
+            <label>Your Name</label>
+            <input type="text" id="customerName"
+                   placeholder="Enter your name">
+
+            <label>Date</label>
+            <input type="date" id="bookingDate">
+
+            <label>Time</label>
+            <input type="time" id="bookingTime">
+
+            <label>Number of Guests</label>
+            <input type="number" id="bookingGuests"
+                   value="1" min="1">
+
+            <button class="confirm-btn"
+                    onclick="confirmBooking()">
+                Confirm Booking
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <h3>BookEase</h3>
+
+        <p>
+            Simple and convenient booking platform.
+        </p>
+
+        <p>
+            © 2026 BookEase
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
